@@ -12,7 +12,9 @@ func TestVector3(t *testing.T) {
 
 	v1 := vector.Vector3[float32]{1, 2, 3}
 	v2 := vector.Vector3[float32]{10, 20, 30}
+	v3 := vector.Vector3[uint32]{10, 20, 30}
 
 	v1.Add(&v2)
 	log.Println(v1, v2)
+	log.Println(v1.String(), v2.String(), v3.String())
 }
