@@ -1,6 +1,9 @@
 package vector
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 type Quaternion[T Number] [4]T
 
@@ -20,6 +23,17 @@ func (quat *Quaternion[T]) Add(other *Quaternion[T]) {
 	quat[1] += other[1]
 	quat[2] += other[2]
 	quat[3] += other[3]
+}
+
+func (quat *Quaternion[T]) Len() float64 {
+	return float64(math.Sqrt(float64(quat[0]*quat[0] + quat[1]*quat[1] + quat[2]*quat[2] + quat[3]*quat[3])))
+}
+
+func (quat *Quaternion[T]) Identity() {
+	quat[0] = 0
+	quat[1] = 0
+	quat[2] = 0
+	quat[3] = 1
 }
 
 func (quat *Quaternion[T]) String() string {
