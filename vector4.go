@@ -7,6 +7,13 @@ import (
 
 type Vector4[T Number] [4]T
 
+func (vec *Vector4[T]) Set(x T, y T, z T, w T) {
+	vec[0] = x
+	vec[1] = y
+	vec[2] = z
+	vec[3] = w
+}
+
 func (vec *Vector4[T]) Clone() *Vector4[T] {
 	return &Vector4[T]{vec[0], vec[1], vec[2], vec[3]}
 }

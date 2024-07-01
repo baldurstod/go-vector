@@ -7,6 +7,13 @@ import (
 
 type Quaternion[T Number] [4]T
 
+func (vec *Quaternion[T]) Set(x T, y T, z T, w T) {
+	vec[0] = x
+	vec[1] = y
+	vec[2] = z
+	vec[3] = w
+}
+
 func (quat *Quaternion[T]) Clone() *Quaternion[T] {
 	return &Quaternion[T]{quat[0], quat[1], quat[2], quat[3]}
 }
