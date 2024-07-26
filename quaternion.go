@@ -3,9 +3,11 @@ package vector
 import (
 	"fmt"
 	"math"
+
+	"golang.org/x/exp/constraints"
 )
 
-type Quaternion[T Number] [4]T
+type Quaternion[T constraints.Float] [4]T
 
 func (vec *Quaternion[T]) Set(x T, y T, z T, w T) {
 	vec[0] = x
@@ -113,6 +115,25 @@ func (quat *Quaternion[T]) RotateZ(angle float64) {
 	quat[1] = T(ay*bw - ax*bz)
 	quat[2] = T(az*bw + aw*bz)
 	quat[3] = T(aw*bw - az*bz)
+}
+
+func (quat *Quaternion[T]) FromEuler(x T, y T, z T) {
+	x *= T(0.5)
+	y *= T(0.5)
+	z *= T(0.5)
+
+	sx := math.Sin(float64(x))
+	sy := math.Sin(float64(y))
+	sz := math.Sin(float64(z))
+
+	cx := math.Cos(float64(x))
+	cy := math.Cos(float64(y))
+	cz := math.Cos(float64(z))
+
+	quat[0] = T(sx*cy*cz - cx*sy*sz)
+	quat[1] = T(cx*sy*cz + sx*cy*sz)
+	quat[2] = T(cx*cy*sz - sx*sy*cz)
+	quat[3] = T(cx*cy*cz + sx*sy*sz)
 }
 
 func (quat *Quaternion[T]) String() string {
